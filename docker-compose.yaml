@@ -1,26 +1,30 @@
 version: '3'
 services:
-  # my-app:
-    # image: ${docker-registry}/my-app:1.0
-    # ports:
-     # - 3000:3000
+  simple_profile:
+    image: simple_profile:1.1
+    dockerfile: .
+    ports: 
+      - 3000:3000
   mongodb:
     image: mongo
     ports:
-     - 27017:27017
-    environment:
-     - MONGO_INITDB_ROOT_USERNAME=admin
-     - MONGO_INITDB_ROOT_PASSWORD=password
+      - 27017:27017
+    environment: # Pls don't do this in production
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
-     - mongo-data:/data/db
+      - mongo-data:/data/db
   mongo-express:
+    depends_on:
+      - mongodb
+    restart: unless-stopped
     image: mongo-express
     ports:
-     - 8080:8081
+      - 8080:8081
     environment:
-     - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-     - ME_CONFIG_MONGODB_ADMINPASSWORD=password
-     - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongodb
 volumes:
   mongo-data:
     driver: local
