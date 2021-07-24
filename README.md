@@ -1,12 +1,6 @@
-## demo app - developing with Docker
+## Simple_profile
 
-This demo app shows a simple user profile app set up using 
-- index.html with pure js and css styles
-- nodejs backend with express module
-- mongodb for data storage
-
-All components are docker-based
-
+Nothing more than a toy app for messing with dockerizing everything. A practice ground before I apply this to my actual projects. 
 ### With Docker
 
 #### To start the application
